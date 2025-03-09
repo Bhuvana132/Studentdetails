@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Details Task</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-10">
+    <h1 class="text-3xl font-bold text-center text-green-600">STUDENT DETAILS 🧑‍🎓</h1>
+
+    <div class="bg-white shadow-md rounded p-6 mt-6">
+        <h2 class="text-2xl font-semibold mb-4">STUDENT FORM</h2>
+        <form id="studentForm" class="space-y-4">
+            <input type="text" id="name" placeholder="Name" class="w-full p-2 border border-gray-300 rounded" required>
+            <input type="number" id="age" placeholder="Age" class="w-full p-2 border border-gray-300 rounded" required>
+            <div>
+                <label class="mr-4">Gender:</label>
+                <input type="radio" name="gender" value="Male" checked> Male
+                <input type="radio" name="gender" value="Female"> Female
+            </div>
+            <select id="course" class="w-full p-2 border border-gray-300 rounded">
+                <option value="JavaScript">JavaScript</option>
+                <option value="PYTHON">PYTHON</option>
+                <option value="HTML">HTML</option>
+            </select>
+            <input type="email" id="email" placeholder="Email" class="w-full p-2 border border-gray-300 rounded" required>
+            <button type="button" onclick="addStudent()" class="bg-blue-500 text-white py-2 px-4 rounded w-full">Save</button>
+        </form>
+    </div>
+
+    <table class="table-auto w-full mt-6 bg-white shadow-md rounded">
+        <thead>
+            <tr class="bg-blue-500 text-white">
+                <th class="p-2">NAME</th>
+                <th class="p-2">AGE</th>
+                <th class="p-2">COURSE</th>
+                <th class="p-2">GENDER</th>
+                <th class="p-2">EMAIL</th>
+                <th class="p-2">ACTION</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+    </table>
+
+    <script>
+        function addStudent() {
+            const name = document.getElementById('name').value;
+            const age = document.getElementById('age').value;
+            const gender = document.querySelector('input[name="gender"]:checked').value;
+            const course = document.getElementById('course').value;
+            const email = document.getElementById('email').value;
+
+            if (name && age && email) {
+                const tableBody = document.getElementById('tableBody');
+                const newRow = `<tr class="border-b">
+                                    <td class="p-2">${name}</td>
+                                    <td class="p-2">${age}</td>
+                                    <td class="p-2">${course}</td>
+                                    <td class="p-2">${gender}</td>
+                                    <td class="p-2">${email}</td>
+                                    <td class="p-2"><button class="bg-red-500 text-white px-3 py-1 rounded" onclick="deleteRow(this)">Delete</button></td>
+                                </tr>`;
+                tableBody.insertAdjacentHTML('beforeend', newRow);
+                document.getElementById('studentForm').reset();
+            } else {
+                alert("Please fill in all fields");
+            }
+        }
+
+        function deleteRow(btn) {
+            const row = btn.parentNode.parentNode;
+            row.remove();
+        }
+    </script>
+</body>
+</html>
